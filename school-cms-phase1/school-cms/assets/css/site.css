@@ -1,0 +1,206 @@
+/* =========================================================
+   เว็บไซต์ฝ่ายบริหารงานทั่วไป — Site stylesheet
+   ธีมสี/ฟอนต์หลักถูกกำหนดจากระบบตั้งค่า (--theme, --accent)
+   ========================================================= */
+:root{
+  --bg:#F5F4EF; --surface:#FFFFFF; --surface2:#EDECE5;
+  --text:#22242B; --muted:#6B6E78; --line:#DDDBD2;
+  --shadow:0 6px 24px rgba(20,30,60,.08);
+  --radius:14px;
+}
+[data-theme="dark"]{
+  --bg:#12141B; --surface:#1B1E28; --surface2:#232733;
+  --text:#E8E9EE; --muted:#9AA0AD; --line:#2E3342;
+  --shadow:0 6px 24px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.7}
+img{max-width:100%;height:auto}
+a{color:var(--theme);text-decoration:none}
+[data-theme="dark"] a{color:color-mix(in srgb, var(--theme) 45%, #fff)}
+a:hover{text-decoration:underline}
+.container{max-width:1140px;margin:0 auto;padding:0 20px}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.35}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Header ---------- */
+.site-header{background:var(--theme);color:#fff;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.18)}
+.header-inner{display:flex;align-items:center;gap:18px;min-height:68px}
+.brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none}
+.brand:hover{text-decoration:none}
+.brand-logo{height:44px;width:auto}
+.brand-mark{width:44px;height:44px;border-radius:10px;background:var(--accent);color:var(--theme);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:1.3rem}
+.brand-text{display:flex;flex-direction:column;line-height:1.25}
+.brand-text strong{font-family:var(--font-display);font-size:1.08rem}
+.brand-text small{opacity:.75;font-size:.78rem}
+.site-nav{margin-left:auto}
+.nav-list{list-style:none;display:flex;gap:2px;margin:0;padding:0}
+.nav-list>li{position:relative}
+.nav-list a{color:#fff;padding:10px 13px;border-radius:8px;display:block;font-size:.95rem}
+.nav-list a:hover{background:rgba(255,255,255,.12);text-decoration:none}
+.sub-menu{list-style:none;margin:0;padding:8px;position:absolute;top:100%;left:0;min-width:220px;
+  background:var(--surface);border-radius:10px;box-shadow:var(--shadow);display:none}
+.sub-menu a{color:var(--text);border-radius:6px}
+.sub-menu a:hover{background:var(--surface2)}
+.has-child:hover>.sub-menu,.has-child:focus-within>.sub-menu{display:block}
+.caret{font-size:.7em;opacity:.7}
+.nav-toggle{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer;margin-left:auto}
+.theme-toggle{background:rgba(255,255,255,.14);border:0;color:#fff;border-radius:999px;
+  width:40px;height:40px;cursor:pointer;font-size:1rem;flex:none}
+.theme-toggle:hover{background:rgba(255,255,255,.25)}
+[data-theme="light"] .ic-moon,[data-theme="dark"] .ic-sun{display:none}
+
+@media (max-width: 920px){
+  .nav-toggle{display:block}
+  .site-nav{display:none;position:absolute;top:100%;left:0;right:0;background:var(--theme);padding:10px 20px 16px}
+  body.nav-open .site-nav{display:block}
+  .nav-list{flex-direction:column}
+  .sub-menu{position:static;display:block;background:transparent;box-shadow:none;padding-left:18px}
+  .sub-menu a{color:#fff;opacity:.9}
+  .brand-text small{display:none}
+}
+
+/* ---------- Ticker (แถบประกาศ) ---------- */
+.ticker{background:var(--surface);border-bottom:1px solid var(--line)}
+.ticker-inner{display:flex;align-items:center;gap:14px;overflow:hidden}
+.ticker-label{background:var(--accent);color:#3A2E00;font-weight:700;font-size:.8rem;
+  padding:3px 12px;border-radius:0 0 8px 8px;flex:none;font-family:var(--font-display)}
+.ticker-track{display:flex;gap:36px;white-space:nowrap;animation:ticker 28s linear infinite;padding:9px 0}
+.ticker-track:hover{animation-play-state:paused}
+.ticker-track a{color:var(--text);font-size:.92rem}
+.ticker-track a::before{content:"📌";margin-right:6px;font-size:.8em}
+@keyframes ticker{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+
+/* ---------- Hero ---------- */
+.hero{background:linear-gradient(135deg,var(--theme),color-mix(in srgb,var(--theme) 70%,#000));
+  color:#fff;padding:64px 0 84px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 55%,transparent),transparent 70%);opacity:.5}
+.hero h1{font-size:clamp(1.8rem,4vw,2.7rem);margin:0 0 10px}
+.hero p{max-width:560px;opacity:.9;margin:0;font-size:1.05rem}
+.hero .container{position:relative;z-index:1}
+
+/* ---------- Quick links: การ์ดแฟ้มเอกสาร (signature) ---------- */
+.quick-links{margin-top:-46px;position:relative;z-index:2}
+.ql-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.ql-card{background:var(--surface);border-radius:4px 14px 14px 14px;box-shadow:var(--shadow);
+  padding:20px 18px 16px;position:relative;transition:transform .15s;color:var(--text);display:block}
+.ql-card::before{content:"";position:absolute;top:-9px;left:0;width:56px;height:10px;
+  background:var(--accent);border-radius:6px 6px 0 0} /* หูแฟ้ม */
+.ql-card:hover{transform:translateY(-4px);text-decoration:none}
+.ql-icon{font-size:1.5rem;display:block;margin-bottom:6px}
+.ql-card strong{font-family:var(--font-display);font-size:.98rem}
+.ql-card img{width:36px;height:36px;object-fit:contain;margin-bottom:6px;display:block}
+
+/* ---------- Sections ---------- */
+.section{padding:44px 0 8px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
+.section-head h2{margin:0;font-size:1.45rem;position:relative;padding-left:16px}
+.section-head h2::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:5px;border-radius:4px;background:var(--accent)}
+.more-link{font-size:.9rem;white-space:nowrap}
+
+/* ---------- Cards / news ---------- */
+.grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.card-img{aspect-ratio:16/9;object-fit:cover;width:100%;background:var(--surface2)}
+.card-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-body h3{margin:0;font-size:1.02rem}
+.card-body h3 a{color:var(--text)}
+.card-meta{color:var(--muted);font-size:.82rem;display:flex;gap:12px;flex-wrap:wrap;margin-top:auto}
+.badge{display:inline-block;background:var(--surface2);color:var(--muted);border-radius:999px;
+  padding:1px 10px;font-size:.75rem}
+.badge.pin{background:var(--accent);color:#3A2E00;font-weight:600}
+
+/* ---------- List (ประกาศ/ดาวน์โหลด) ---------- */
+.doc-list{list-style:none;margin:0;padding:0;background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.doc-list li{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.doc-list li:last-child{border-bottom:0}
+.doc-ic{flex:none;width:40px;height:40px;border-radius:9px;background:var(--surface2);
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.doc-main{flex:1;min-width:0}
+.doc-main a{color:var(--text);font-weight:500}
+.doc-sub{color:var(--muted);font-size:.8rem;display:flex;gap:12px;flex-wrap:wrap}
+.doc-act{flex:none}
+.btn{display:inline-block;background:var(--theme);color:#fff!important;border-radius:8px;border:0;cursor:pointer;
+  padding:8px 18px;font-family:var(--font-display);font-size:.9rem}
+.btn:hover{filter:brightness(1.12);text-decoration:none}
+.btn.ghost{background:transparent;color:var(--theme)!important;border:1.5px solid var(--theme)}
+
+/* ---------- Personnel ---------- */
+.person-card{text-align:center;padding:22px 14px}
+.person-card img,.person-ph{width:110px;height:110px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;
+  border:3px solid var(--accent);background:var(--surface2)}
+.person-ph{display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--muted)}
+.person-card h3{margin:0;font-size:1rem}
+.person-card .pos{color:var(--theme);font-size:.86rem;font-weight:600}
+.person-card .dep{color:var(--muted);font-size:.8rem}
+.person-card .ctc{color:var(--muted);font-size:.8rem;margin-top:6px}
+
+/* ---------- Calendar ---------- */
+.ev-item{border-left:4px solid var(--theme);padding-left:14px}
+.ev-item.holiday{border-color:#C0392B}
+.ev-item.meeting{border-color:var(--accent)}
+.ev-item.important{border-color:#7D3C98}
+.ev-date{font-family:var(--font-display);color:var(--theme);font-weight:600;font-size:.9rem}
+
+/* ---------- Article / page ---------- */
+.article{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:32px;max-width:860px;margin:0 auto}
+.article h1{margin-top:0;font-size:1.6rem}
+.article .meta{color:var(--muted);font-size:.85rem;margin-bottom:20px;display:flex;gap:16px;flex-wrap:wrap}
+.article .body img{border-radius:10px}
+.article .body table{border-collapse:collapse;width:100%}
+.article .body td,.article .body th{border:1px solid var(--line);padding:8px 10px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:20px}
+.gallery img{border-radius:10px;aspect-ratio:4/3;object-fit:cover;width:100%}
+
+/* ---------- Filters / pagination / forms ---------- */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.filter-bar input,.filter-bar select{padding:9px 12px;border-radius:8px;border:1px solid var(--line);
+  background:var(--surface);color:var(--text);font-family:inherit;font-size:.95rem}
+.pagination{display:flex;gap:6px;justify-content:center;margin:28px 0}
+.pagination a,.pagination span{padding:6px 13px;border-radius:8px;background:var(--surface);box-shadow:var(--shadow);font-size:.9rem}
+.pagination .cur{background:var(--theme);color:#fff}
+.empty{color:var(--muted);text-align:center;padding:44px 0}
+
+/* ---------- Contact ---------- */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:24px}
+.map-embed iframe{width:100%;min-height:320px;border:0;border-radius:var(--radius)}
+@media (max-width:760px){.contact-grid{grid-template-columns:1fr}}
+
+/* ---------- Footer ---------- */
+.site-footer{margin-top:56px;background:color-mix(in srgb,var(--theme) 92%,#000);color:#fff}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;padding:38px 20px 26px;font-size:.92rem}
+.footer-grid p{opacity:.85;margin:6px 0}
+.f-title{font-size:1.02rem;margin:0 0 6px;color:var(--accent)}
+.f-links{list-style:none;margin:0;padding:0}
+.f-links a,.f-social a{color:#fff;opacity:.85}
+.f-social a{margin-right:14px}
+.footer-bar{border-top:1px solid rgba(255,255,255,.15);font-size:.8rem}
+.footer-bar .container{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px;opacity:.75}
+
+/* ---------- Dynamic Content Blocks ---------- */
+.block-zone{margin-top:26px}
+.blk{margin-bottom:18px}
+.blk-banner img{width:100%;border-radius:var(--radius);box-shadow:var(--shadow);display:block}
+.blk-notice{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:18px 22px;border-left:6px solid var(--accent);display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.blk-notice.theme{border-left-color:var(--theme)}
+.blk-notice.red{border-left-color:#B3352C}
+.blk-notice.green{border-left-color:#1D7A35}
+.blk-notice strong{font-family:var(--font-display);font-size:1.05rem;color:var(--theme)}
+.blk-notice p{margin:0;flex:1 1 100%;color:var(--muted)}
+.blk-notice strong + p{flex-basis:auto}
+.blk-buttons{display:flex;gap:12px;flex-wrap:wrap}
+.blk-btn{display:flex;align-items:center;gap:8px;background:var(--surface);box-shadow:var(--shadow);
+  border-radius:999px;padding:9px 20px;color:var(--text);font-weight:500;font-size:.93rem;transition:transform .15s}
+.blk-btn:hover{transform:translateY(-2px);text-decoration:none;color:var(--theme)}
+.blk-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.blk-card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;color:var(--text);display:block}
+.blk-card:hover{text-decoration:none;outline:2px solid var(--accent)}
+.blk-card .ci{font-size:1.4rem;display:block;margin-bottom:6px}
+.blk-card strong{font-family:var(--font-display)}
+.blk-card p{margin:6px 0 0;color:var(--muted);font-size:.86rem}
